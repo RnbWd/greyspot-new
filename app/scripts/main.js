@@ -1,18 +1,18 @@
-/*global greyspotL, $*/
+/*global greyspot, $*/
 
 
-window.greyspotL = {
+window.greyspot = {
     Models: {},
     Collections: {},
     Views: {},
     Routers: {},
     init: function () {
-        'use strict';
-        console.log('Hello from Backbone!');
+        new this.Views.SongsView({
+            collection: new this.Collections.SongsCollection()
+        });    
     }
 };
 
 $(document).ready(function () {
-    'use strict';
-    greyspotL.init();
+    greyspot.init();
 });

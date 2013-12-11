@@ -6,12 +6,13 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>greyspot l</title>
+        <title>greyspot</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="shortcut icon" href="bower_components/sass-bootstrap/docs-assets/ico/favicon.png">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
@@ -21,11 +22,18 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">GreySpot</a>
+        </div>
+      </div>
+    </div>
 
     <div class="container">
-        <div class="hero-unit">
+        <div class="jumbotron">
             <h1>'Allo, 'Allo!</h1>
-            <section id="todo-app">
+            <section id="grey-app">
                 <!-- Where our To Do app will go -->
             </section>
         </div>
@@ -46,6 +54,7 @@
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/backbone.localStorage/backbone.localStorage.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
@@ -66,6 +75,10 @@
         <!-- build:js({.tmp,app}) scripts/main.js -->
         <script src="scripts/main.js"></script>
         <script src="scripts/templates.js"></script>
+        <script src="scripts/collections/songs.js"></script>
+        <script src="scripts/models/song.js"></script>
+        <script src="scripts/views/songs.js"></script>
+        <script src="scripts/views/song.js"></script>
         <!-- endbuild -->
 </body>
 </html>
