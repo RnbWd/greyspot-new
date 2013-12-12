@@ -17,6 +17,13 @@ window.greyspot = {
 var widgetLoad = {};
     _.extend(widgetLoad, Backbone.Events);
 
+var widgetFinish = {};
+    _.extend(widgetFinish, Backbone.Events);
+
+var widgetPlay = {};
+    _.extend(widgetPlay, Backbone.Events);
+
+
 $(document).ready(function () {
 
     greyspot.init();
@@ -27,6 +34,14 @@ $(document).ready(function () {
 
     widget.bind(SC.Widget.Events.READY, function() {
         widgetLoad.trigger('fire');
+    });
+
+    widget.bind(SC.Widget.Events.PLAY , function() {
+        widgetFinish.trigger('fire');
+    });
+    
+    widget.bind(SC.Widget.Events.FINISH , function() {
+        widgetPlay.trigger('fire');
     });
 
 });

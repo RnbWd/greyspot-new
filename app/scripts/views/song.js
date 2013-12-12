@@ -11,13 +11,13 @@ greyspot.Views.SongView = Backbone.View.extend({
   events: {
     'mouseenter' : 'enter',
     'mouseleave' : 'leave',
-    'click .waveOn': 'bannerOn',
-    'click .waveOff': 'bannerOff',
-    'click': 'togglePlay'
+    'click': 'toggleSkip'
   },
 
   initialize: function () {
     this.render();
+    //this.listenTo(widgetFinish, 'fire', this.togglePlay);
+    //this.listenTo(widgetPlay, 'fire', this.checkPlay);
     //this.listenTo(this.model, 'change', this.render);
   },
 
@@ -46,10 +46,29 @@ greyspot.Views.SongView = Backbone.View.extend({
     this.$('.drop').toggleClass('waveOff').toggleClass('waveOn');
     $('#banner img').addClass('hide');
   },
+  toggleSkip: function() {
+    var id = this.model.attributes.id;
+    var index = this.model.attributes.index;
+    var self = this;
+    widget.getCurrentSound(function(data) {
+      if (id == data.id) {
+        widget.toggle();
+        self.togglePlay();
+      } else {
+        widget.skip(index);
+        $('.on').removeClass('glyphicon-pause').addClass('glyphicon-play');
+        self.togglePlay();
+      }
+    });
+
+  },
   togglePlay: function() {
-    widget.toggle();
-    this.$('.play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
-    $('.player-play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
+    var self = this;
+  
+    $('.player-play').removeClass('glyphicon-play').addClass('glyphicon-pause');
+    
+    
+    this.$('.play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause').toggleClass('on');
   }
 });
 

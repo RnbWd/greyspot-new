@@ -5,6 +5,8 @@
 greyspot.Models.SongModel = Backbone.Model.extend({
 
   defaults: {
+      id: '',
+      index: '',
       title: '',
       artwork: '',
       waveform: ''
