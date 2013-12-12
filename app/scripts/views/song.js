@@ -18,7 +18,7 @@ greyspot.Views.SongView = Backbone.View.extend({
   },
 
   render: function () {
-    this.$el.html(this.template(this.model.toJSON()));
+    this.$el.addClass('list-group-item').html(this.template(this.model.toJSON()));
 
     return this;
   }
