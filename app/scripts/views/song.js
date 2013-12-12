@@ -27,10 +27,10 @@ greyspot.Views.SongView = Backbone.View.extend({
   },
   enter: function() {
     //this.$('img').toggleClass('hide');
-    this.$el.css({'background-color': 'orange'})
+    this.$el.css({'background-color': 'orange', 'color': '#fafafa'});
   },
   leave: function() {
-    this.$el.css({'background-color': '#fafafa'})
+    this.$el.css({'background-color': '#fafafa', 'color': 'black'})
   },
   banner: function(){
     $('#banner').html('<img src="'+this.model.attributes.waveform+'" class="img-responsive"/>')
