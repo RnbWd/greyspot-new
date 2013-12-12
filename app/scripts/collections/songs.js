@@ -7,7 +7,7 @@ greyspot.Collections.SongsCollection = Backbone.Collection.extend({
     localStorage: new Backbone.LocalStorage('backbone-generator-songs'),
 
     initialize: function () {
-      this.model = greyspot.Models.SongModel;
+      this.model = new greyspot.Models.SongModel;
     }
 
 });

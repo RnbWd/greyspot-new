@@ -9,7 +9,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
   template: JST['app/scripts/templates/songs.ejs'],
 
   events: {
-    'submit': 'createSong'
+    //'widgetLoad' : 'createSong'
   },
 
   initialize: function () {
@@ -17,7 +17,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
     this.listenTo(this.collection, 'add', this.addSongItem);
     this.listenTo(this.collection, 'reset', this.addAllSongItems);
-
+    this.listenTo(widgetLoad, 'fire', this.createSong);
     this.collection.fetch();
   },
 
@@ -29,17 +29,23 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
   createSong: function () {  
 
-    event.preventDefault();
+    var self = this;
 
-    var title = this.$('#new-song').val().trim();
+    widget.getSounds(function(data) {
 
-    if (title) {
-        this.collection.create(new greyspot.Models.SongModel({
-            title: title
+      for (var i = 0; i < data.length; i++) {
+
+        var title = data[i].title;
+        var waveform = data[i].waveform_url;
+        var artwork = data[i].artwork_url;
+
+        self.collection.create(new greyspot.Models.SongModel({
+            title: title,
+            waveform: waveform,
+            artwork: artwork
         }));
-
-        $('#new-song').val('');
-    }
+      } //end forLoop
+    });//end getSounds
   },
 
   addSongItem: function (song) { 
