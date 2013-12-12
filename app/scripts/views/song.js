@@ -11,7 +11,9 @@ greyspot.Views.SongView = Backbone.View.extend({
   events: {
     'mouseenter' : 'enter',
     'mouseleave' : 'leave',
-    'click': 'banner'
+    'click .waveOn': 'bannerOn',
+    'click .waveOff': 'bannerOff',
+    'click': 'togglePlay'
   },
 
   initialize: function () {
@@ -28,14 +30,27 @@ greyspot.Views.SongView = Backbone.View.extend({
   enter: function() {
     //this.$('img').toggleClass('hide');
     this.$el.css({'background-color': 'orange', 'color': '#fafafa'});
+    this.$('.play').removeClass('hidden');
   },
   leave: function() {
-    this.$el.css({'background-color': '#fafafa', 'color': 'black'})
+    this.$el.css({'background-color': '#fafafa', 'color': 'black'});
+    this.$('.play').addClass('hidden');
   },
-  banner: function(){
-    $('#banner').html('<img src="'+this.model.attributes.waveform+'" class="img-responsive"/>')
+  bannerOn: function() {
+    this.togglePlay();
+    this.$('.drop').toggleClass('waveOn').toggleClass('waveOff');
+    $('#banner').html('<img src="'+this.model.attributes.waveform+'" class="img-responsive"/>');
+  },
+  bannerOff: function(){
+    this.togglePlay();
+    this.$('.drop').toggleClass('waveOff').toggleClass('waveOn');
+    $('#banner img').addClass('hide');
+  },
+  togglePlay: function() {
+    widget.toggle();
+    this.$('.play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
+    $('.player-play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
   }
-  
 });
 
 
