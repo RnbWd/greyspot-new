@@ -1,5 +1,6 @@
 /*global greyspot, $*/
 
+window.localStorage.clear();
 
 window.greyspot = {
     Models: {},

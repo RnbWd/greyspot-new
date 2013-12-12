@@ -35,15 +35,15 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
       for (var i = 0; i < data.length; i++) {
 
-        var title = data[i].title;
-        var waveform = data[i].waveform_url;
-        var artwork = data[i].artwork_url;
+          var title = data[i].title;
+          var waveform = data[i].waveform_url;
+          var artwork = data[i].artwork_url;
 
-        self.collection.create(new greyspot.Models.SongModel({
-            title: title,
-            waveform: waveform,
-            artwork: artwork
-        }));
+          self.collection.create(new greyspot.Models.SongModel({
+              title: title,
+              waveform: waveform,
+              artwork: artwork
+          }));
       } //end forLoop
     });//end getSounds
   },
