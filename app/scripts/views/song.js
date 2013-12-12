@@ -9,7 +9,7 @@ greyspot.Views.SongView = Backbone.View.extend({
   template: JST['app/scripts/templates/song.ejs'],
 
   events: {
-
+    'click' : 'info'
   },
 
   initialize: function () {
@@ -21,6 +21,9 @@ greyspot.Views.SongView = Backbone.View.extend({
     this.$el.addClass('list-group-item').html(this.template(this.model.toJSON()));
 
     return this;
+  },
+  info: function() {
+    console.log(this.model.attributes.waveform);
   }
   
 });

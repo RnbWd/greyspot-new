@@ -38,7 +38,9 @@ greyspot.Views.SongsView = Backbone.View.extend({
           var title = data[i].title;
           var waveform = data[i].waveform_url;
           var artwork = data[i].artwork_url;
-
+          var index = title.indexOf("-");
+          if (index != -1)
+            title = title.substring(0, index);
           self.collection.create(new greyspot.Models.SongModel({
               title: title,
               waveform: waveform,
