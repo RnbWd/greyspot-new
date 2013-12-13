@@ -62,4 +62,7 @@ $(document).ready(function () {
         widgetProgress.trigger('fire',{position: (data.relativePosition*100).toFixed(1)+"%"});
     });
 
+    $(function () {
+        $('.tlt').textillate();
+    });
 });
