@@ -9,8 +9,14 @@ greyspot.Models.SongModel = Backbone.Model.extend({
       index: '',
       title: '',
       artwork: '',
-      waveform: ''
-  }
+      waveform: '',
+      playing: false
+  },
+  toggle: function () {
+        this.save({
+            playing: !this.get('playing')
+        });
+    }
 
 });
 

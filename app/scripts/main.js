@@ -23,6 +23,12 @@ var widgetFinish = {};
 var widgetPlay = {};
     _.extend(widgetPlay, Backbone.Events);
 
+var widgetPause = {};
+    _.extend(widgetPause, Backbone.Events);
+
+var widgetProgress = {};
+    _.extend(widgetProgress, Backbone.Events);
+
 
 $(document).ready(function () {
 
@@ -33,15 +39,27 @@ $(document).ready(function () {
     widget = SC.Widget(iframe);
 
     widget.bind(SC.Widget.Events.READY, function() {
-        widgetLoad.trigger('fire');
+        widgetLoad.trigger('ready');
+        widget.toggle().toggle();
     });
 
-    widget.bind(SC.Widget.Events.PLAY , function() {
-        widgetFinish.trigger('fire');
+    widget.bind(SC.Widget.Events.PLAY , function(data) {
+        widgetPlay.trigger('play');
+        widget.getCurrentSound(function(data) {
+            widgetPlay.trigger('currentSound', {id: data.id});
+        });
     });
     
     widget.bind(SC.Widget.Events.FINISH , function() {
-        widgetPlay.trigger('fire');
+        widgetFinish.trigger('finish');
+    });
+
+    widget.bind(SC.Widget.Events.PAUSE , function() {
+        widgetPause.trigger('pause');
+    });
+
+    widget.bind(SC.Widget.Events.PLAY_PROGRESS, function(data) {
+        widgetProgress.trigger('fire',{position: (data.relativePosition*100).toFixed(1)+"%"});
     });
 
 });

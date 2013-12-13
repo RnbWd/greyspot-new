@@ -4,7 +4,7 @@ greyspot.Views = greyspot.Views || {};
 
 greyspot.Views.SongsView = Backbone.View.extend({
 
-  el: '#grey-app',
+  el: '#songs',
 
   template: JST['app/scripts/templates/songs.ejs'],
 
@@ -17,8 +17,13 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
     this.listenTo(this.collection, 'add', this.addSongItem);
     this.listenTo(this.collection, 'reset', this.addAllSongItems);
-    this.listenTo(widgetLoad, 'fire', this.createSong);
+    this.listenTo(widgetLoad, 'ready', this.createSong);
+    this.listenTo(widgetPause, 'pause', this.toggleButton);
+    this.listenTo(widgetPlay, 'play', this.toggleButton);
+    this.listenTo(widgetPlay, 'currentSound', this.checkPlay);
+    this.listenTo(widgetProgress, 'fire', this.checkProgress);
     this.collection.fetch();
+    //setTimeout(this.checkPause, 2500);
   },
 
   render: function () { 
@@ -60,7 +65,42 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
   addAllSongItems: function () { 
     this.collection.each(this.addSongItem, this);
-  }
+  },
 
+  checkPlay: function (data) {
+    var title = this.$('#song-title');
+    this.collection.each(function(model) {
+      if (data.id != model.id && model.attributes.playing) {
+        model.toggle();
+      } else if (data.id == model.id) {
+        title.html("<p>"+model.attributes.title+"</p>");
+      }
+    });
+    /*console.log('play')
+    var hasClass = this.$('.player-play').hasClass('glyphicon-play');
+    if (hasClass) {
+      this.$('#player').removeClass('alert-danger').addClass('alert-info');
+      this.$('.player-play').removeClass('glyphicon-play').addClass('glyphicon-pause');
+    }
+    console.log(play);*/
+  },
+
+  checkPause: function() {
+    var hasClass = this.$('.player-play').hasClass('glyphicon-pause');
+    if (hasClass) {
+      this.$('#player').removeClass('alert-info').addClass('alert-danger');
+      this.$('.player-play').removeClass('glyphicon-pause').addClass('glyphicon-play');
+    }
+    console.log('pause');
+  },
+
+  checkProgress: function(data) {
+    this.$('.progress-bar').css({'width': data.position});
+  },
+
+  toggleButton: function() {
+      this.$('#player').toggleClass('alert-info').toggleClass('alert-danger');
+      this.$('.player-play').toggleClass('glyphicon-pause').toggleClass('glyphicon-play');
+  }
 });
 

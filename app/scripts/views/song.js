@@ -16,17 +16,20 @@ greyspot.Views.SongView = Backbone.View.extend({
 
   initialize: function () {
     this.render();
-    //this.listenTo(widgetFinish, 'fire', this.togglePlay);
-    //this.listenTo(widgetPlay, 'fire', this.checkPlay);
-    //this.listenTo(this.model, 'change', this.render);
+    
+    this.listenTo(this.model, 'change:playing', this.togglePlay);
   },
 
   render: function () {
     this.$el.addClass('list-group-item').html(this.template(this.model.toJSON()))
-    this.$el.css({'background-image':'url('+this.model.attributes.waveform+')', 'background-size': 'cover'});
-
+    this.waveform();
     return this;
   },
+
+  waveform: function() {
+    this.$el.css({'background-image':'url('+this.model.get('waveform')+')', 'background-size': 'cover'});
+  },
+
   enter: function() {
     //this.$('img').toggleClass('hide');
     this.$el.css({'background-color': 'orange', 'color': '#fafafa'});
@@ -36,39 +39,27 @@ greyspot.Views.SongView = Backbone.View.extend({
     this.$el.css({'background-color': '#fafafa', 'color': 'black'});
     this.$('.play').addClass('hidden');
   },
-  bannerOn: function() {
-    this.togglePlay();
-    this.$('.drop').toggleClass('waveOn').toggleClass('waveOff');
-    $('#banner').html('<img src="'+this.model.attributes.waveform+'" class="img-responsive"/>');
-  },
-  bannerOff: function(){
-    this.togglePlay();
-    this.$('.drop').toggleClass('waveOff').toggleClass('waveOn');
-    $('#banner img').addClass('hide');
-  },
   toggleSkip: function() {
     var id = this.model.attributes.id;
     var index = this.model.attributes.index;
-    var self = this;
+
     widget.getCurrentSound(function(data) {
       if (id == data.id) {
         widget.toggle();
-        self.togglePlay();
+     
       } else {
         widget.skip(index);
-        $('.on').removeClass('glyphicon-pause').addClass('glyphicon-play');
-        self.togglePlay();
+       
       }
     });
 
+    this.model.toggle();
+
   },
   togglePlay: function() {
-    var self = this;
   
-    $('.player-play').removeClass('glyphicon-play').addClass('glyphicon-pause');
+    this.$('.play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
     
-    
-    this.$('.play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause').toggleClass('on');
   }
 });
 
