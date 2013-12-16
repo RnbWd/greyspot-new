@@ -16,17 +16,45 @@ greyspot.Views.SongView = Backbone.View.extend({
 
   initialize: function () {
     this.render();
-    this.listenTo(widgetPause, 'pause', this.checkPlay);
+    this.listenTo(widgetPause, 'pause', this.checkPause);
     this.listenTo(widgetPlay, 'play', this.checkPlay);
     this.listenTo(this.model, 'change:playing', this.togglePlay);
   },
 
   render: function () {
-    this.$el.addClass('list-group-item').html(this.template(this.model.toJSON()))
+    this.$el.addClass('list-group-item').html(this.template(this.model.toJSON()));
     this.waveform();
     return this;
   },
-
+  checkPause: function() {
+     var self = this;
+     var model= self.model;
+     widget.getCurrentSound(function(data) {
+      if (model.attributes.id == data.id) {
+        //model.toggle();
+        self.togglePlay(false);
+        //console.log(model.attributes.title);
+      }
+    });
+    
+  },
+  checkPlay: function() {
+     var self = this;
+     var model= this.model;
+     widget.getCurrentSound(function(data) {
+      if (model.attributes.id == data.id && !model.attributes.playing) {
+        model.toggle();
+        self.togglePlay(true);
+      } else if (model.attributes.id == data.id && model.attributes.playing) {
+        //model.toggle();
+        self.togglePlay(true);
+      } else if (model.attributes.playing) {
+        model.toggle();
+        self.togglePlay(false);
+      }
+    });
+    
+  },
   waveform: function() {
     this.$el.css({'background-image':'url('+this.model.get('waveform')+')', 'background-size': 'cover'});
   },
@@ -47,34 +75,25 @@ greyspot.Views.SongView = Backbone.View.extend({
     widget.getCurrentSound(function(data) {
       if (id == data.id) {
         widget.toggle();
-     
+        //model.toggle();
       } else {
         widget.skip(index);
-        model.toggle();
+        //model.toggle();
       }
     });
 
   },
 
-  checkPlay: function() {
-    var model= this.model;
-    widget.getCurrentSound(function(data) {
-      if (model.attributes.id == data.id) {
-        model.toggle();
-        console.log(model.attributes.title);
-      }
-    });
-    //this.togglePlay();
-  },
 
-  togglePlay: function() {
+  togglePlay: function(data) {
     var self = this;
-    if (self.model.attributes.playing) {
+    if (self.model.attributes.playing && data) {
       self.$('.play').removeClass('glyphicon-play').addClass('glyphicon-pause');
-      console.log(self.model.attributes.title);
+      //console.log(self.model.attributes.title);
     }
-    else {
+    else if (!data) {
       self.$('.play').addClass('glyphicon-play').removeClass('glyphicon-pause');
+      //console.log(self.model.attributes.title);
     }
     
   }

@@ -20,7 +20,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
     this.listenTo(widgetLoad, 'ready', this.createSong);
     this.listenTo(widgetPause, 'pause', this.toggleButton);
     this.listenTo(widgetPlay, 'play', this.toggleButton);
-    this.listenTo(widgetPlay, 'currentSound', this.checkPlay);
+    this.listenTo(widgetPlay, 'play', this.checkPlay);
     this.listenTo(widgetProgress, 'fire', this.checkProgress);
     this.collection.fetch();
     //setTimeout(this.checkPause, 2500);
@@ -74,13 +74,18 @@ greyspot.Views.SongsView = Backbone.View.extend({
   //update play/pause icons for non-playing songs and update title when play/pause triggered
   checkPlay: function (data) {
     var $title = this.$('#song-title');
-    this.collection.each(function(model) {
-      if (data.id != model.id && model.attributes.playing) {
-        model.toggle();
-      } else if (data.id == model.id) {
-        $title.html(model.attributes.title);
-      }
+    var self = this;
+    widget.getCurrentSound(function(data) {
+      self.collection.each(function(model) {
+        if (data.id != model.id && model.attributes.playing) {
+          //model.toggle();
+        } else if (data.id == model.id) {
+          $title.html(model.attributes.title);
+          //model.toggle();
+        }
+      });
     });
+    
   },
   //update progress bar while playing
   checkProgress: function(data) {

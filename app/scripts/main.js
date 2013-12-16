@@ -45,9 +45,6 @@ $(document).ready(function () {
 
     widget.bind(SC.Widget.Events.PLAY , function(data) {
         widgetPlay.trigger('play');
-        widget.getCurrentSound(function(data) {
-            widgetPlay.trigger('currentSound', {id: data.id});
-        });
     });
     
     widget.bind(SC.Widget.Events.FINISH , function() {
