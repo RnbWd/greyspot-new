@@ -28,7 +28,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
   render: function () { 
     this.$el.html(this.template());
-
+    this.createSkips();
     return this;
   },
 
@@ -57,7 +57,12 @@ greyspot.Views.SongsView = Backbone.View.extend({
       } //end forLoop
     });//end getSounds
   },
-
+  createSkips: function() {
+    var self = this;
+    for (var i = 0; i < 100; i++) {
+      self.$('#skipper').append('<span id="s'+i+'"></span>');
+    }
+  },
   addSongItem: function (song) { 
     var view = new greyspot.Views.SongView({ model: song });
     this.$('ul').append(view.render().el);
@@ -66,41 +71,26 @@ greyspot.Views.SongsView = Backbone.View.extend({
   addAllSongItems: function () { 
     this.collection.each(this.addSongItem, this);
   },
-
+  //update play/pause icons for non-playing songs and update title when play/pause triggered
   checkPlay: function (data) {
-    var title = this.$('#song-title');
+    var $title = this.$('#song-title');
     this.collection.each(function(model) {
       if (data.id != model.id && model.attributes.playing) {
         model.toggle();
       } else if (data.id == model.id) {
-        title.html("<p>"+model.attributes.title+"</p>");
+        $title.html(model.attributes.title);
       }
     });
-    /*console.log('play')
-    var hasClass = this.$('.player-play').hasClass('glyphicon-play');
-    if (hasClass) {
-      this.$('#player').removeClass('alert-danger').addClass('alert-info');
-      this.$('.player-play').removeClass('glyphicon-play').addClass('glyphicon-pause');
-    }
-    console.log(play);*/
   },
-
-  checkPause: function() {
-    var hasClass = this.$('.player-play').hasClass('glyphicon-pause');
-    if (hasClass) {
-      this.$('#player').removeClass('alert-info').addClass('alert-danger');
-      this.$('.player-play').removeClass('glyphicon-pause').addClass('glyphicon-play');
-    }
-    console.log('pause');
-  },
-
+  //update progress bar while playing
   checkProgress: function(data) {
     this.$('.progress-bar').css({'width': data.position});
   },
-
+  //update play/pause icons for song playing
   toggleButton: function() {
       this.$('#player').toggleClass('alert-info').toggleClass('alert-danger');
       this.$('.player-play').toggleClass('glyphicon-pause').toggleClass('glyphicon-play');
+
   }
 });
 

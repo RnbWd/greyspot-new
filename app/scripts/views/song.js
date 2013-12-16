@@ -16,7 +16,8 @@ greyspot.Views.SongView = Backbone.View.extend({
 
   initialize: function () {
     this.render();
-    
+    this.listenTo(widgetPause, 'pause', this.checkPlay);
+    this.listenTo(widgetPlay, 'play', this.checkPlay);
     this.listenTo(this.model, 'change:playing', this.togglePlay);
   },
 
@@ -31,7 +32,6 @@ greyspot.Views.SongView = Backbone.View.extend({
   },
 
   enter: function() {
-    //this.$('img').toggleClass('hide');
     this.$el.css({'background-color': 'orange', 'color': '#fafafa'});
     this.$('.play').removeClass('hidden');
   },
@@ -42,6 +42,7 @@ greyspot.Views.SongView = Backbone.View.extend({
   toggleSkip: function() {
     var id = this.model.attributes.id;
     var index = this.model.attributes.index;
+    var model = this.model;
 
     widget.getCurrentSound(function(data) {
       if (id == data.id) {
@@ -49,16 +50,32 @@ greyspot.Views.SongView = Backbone.View.extend({
      
       } else {
         widget.skip(index);
-       
+        model.toggle();
       }
     });
 
-    this.model.toggle();
-
   },
+
+  checkPlay: function() {
+    var model= this.model;
+    widget.getCurrentSound(function(data) {
+      if (model.attributes.id == data.id) {
+        model.toggle();
+        console.log(model.attributes.title);
+      }
+    });
+    //this.togglePlay();
+  },
+
   togglePlay: function() {
-  
-    this.$('.play').toggleClass('glyphicon-play').toggleClass('glyphicon-pause');
+    var self = this;
+    if (self.model.attributes.playing) {
+      self.$('.play').removeClass('glyphicon-play').addClass('glyphicon-pause');
+      console.log(self.model.attributes.title);
+    }
+    else {
+      self.$('.play').addClass('glyphicon-play').removeClass('glyphicon-pause');
+    }
     
   }
 });
