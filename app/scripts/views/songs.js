@@ -28,7 +28,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
 
   render: function () { 
     this.$el.html(this.template());
-    this.createSkips();
+   
     return this;
   },
 
@@ -57,12 +57,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
       } //end forLoop
     });//end getSounds
   },
-  createSkips: function() {
-    var self = this;
-    for (var i = 0; i < 100; i++) {
-      self.$('#skipper').append('<span id="s'+i+'"></span>');
-    }
-  },
+  
   addSongItem: function (song) { 
     var view = new greyspot.Views.SongView({ model: song });
     this.$('ul').append(view.render().el);
@@ -73,15 +68,12 @@ greyspot.Views.SongsView = Backbone.View.extend({
   },
   //update play/pause icons for non-playing songs and update title when play/pause triggered
   checkPlay: function (data) {
-    var $title = this.$('#song-title');
+    var $title = $('#song-title');
     var self = this;
     widget.getCurrentSound(function(data) {
       self.collection.each(function(model) {
-        if (data.id != model.id && model.attributes.playing) {
-          //model.toggle();
-        } else if (data.id == model.id) {
+      if (data.id == model.id) {
           $title.html(model.attributes.title);
-          //model.toggle();
         }
       });
     });
@@ -89,13 +81,13 @@ greyspot.Views.SongsView = Backbone.View.extend({
   },
   //update progress bar while playing
   checkProgress: function(data) {
-    this.$('.progress-bar').css({'width': data.position});
+    //this.$('.progress-bar').css({'width': data.position});
   },
   //update play/pause icons for song playing
   toggleButton: function() {
-      this.$('#player').toggleClass('alert-info').toggleClass('alert-danger');
-      this.$('.player-play').toggleClass('glyphicon-pause').toggleClass('glyphicon-play');
-
+      //this.$('#player').toggleClass('funky').toggleClass('alert-danger');
+      $('.player-play').toggleClass('glyphicon-pause').toggleClass('glyphicon-play');
+      //$('#song-title').css({'color': 'orange'});
   }
 });
 

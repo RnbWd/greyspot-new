@@ -3,106 +3,192 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import 'sass-bootstrap/lib/bootstrap';
 
 body {
-    background: url('../images/sheet.jpg') center fixed;
-    color: #fafafa;
+   background: url('../images/space.jpg') center fixed;
+   background-size: cover;
+   color: #fafafa;
+
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
 }
 .header {
-  display: table;
-  height: 12em;
+  display: block;
+  height: 90%;
   width: 100%;
+  min-width: 400px;
   position: relative;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  overflow: hidden;
+  margin-bottom: -40px;
 }
 
-.vert-text {
-  display: table-cell;
-  vertical-align: middle;
+.header .img-responsive {
+  opacity: 0.5;
+  min-height: 89%;
+  max-height: 90%;
+  min-width: 400px;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.header .row {
+  height: 100%;
+}
+
+#icons-container {
+  position: relative;
   text-align: center;
+  z-index: 999;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.vert-text h1 {
-  padding: 0;
-  margin: 0;
-  font-size: 4.5em;
-  font-weight: 700;
+.icon {
+  width: 45px;
+  margin-left: 2%;
+  border-radius: 8px;
+}
+
+#facebook {
+
+  
+}
+
+#instagram {
+
+ 
+}
+
+#soundCloud {
+}
+
+#youtube-icon {
+
+  opacity: 0.6;
+  background: lightgrey;
+
+}
+
+#twitter {
+
+}
+
+#facebook:hover {
+  opacity: 0.7;
+  background: lightgrey;
+}
+#youtube-icon:hover {
+  opacity: 0.7;
+  background: darkgrey;
+}
+#twitter:hover {
+  opacity: 0.7;
+
+}
+#instagram:hover {
+  opacity: 0.7;
+  background: lightgrey;
+}
+#soundCloud:hover {
+  opacity: 0.7;
+
+}
+
+#media {
+  margin-top: 10%;
+}
+#media .row {
+  max-height: 75%;
+  overflow: scroll;
 }
 
 .list-group {
+    position: relative;
     list-style: none;
     overflow: scroll;
-    height: 300px;
     color: black;
+     
 }
 
-.container {
-    width: 100%;
-}
-
-.container .row {
-
-}
-.container .row .col-md-4 {
-    background: grey;
-    border: 1px solid white;
-}
-.progress-bar {
-    z-index: 1;
-    height: 100%;
-}
-
-#skipper span {
-    position: relative;
-    display: inline-block;
-    width: 1%;
-    height: 100%;
-}
-#skipper {
-    float: left;
-    width: 100%;
-    height: 100%;
+#songs {
+  position: relative;
+  max-height: 50%;
+  overflow: scroll;
 }
 
 #songs {
     overflow: hidden;
-    height: 400px;
+    height: 50%;
 }
-#youtube {
+
+#video-container {
     overflow: hidden;
-    height: 400px;
+    height: 50%;
 }
-#myModal {
-    width: 100%;
-    height: 100%;
-}
+
 #test {
-    height: 400px;
+    
 }
-#expand {
-    margin-top: -15px;
-    margin-right: -15px;
-}
-#music {
-    margin-top: -15px;
-    margin-left: -15px;
-}
+
 #player {
-   
+  border-top: none;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  background: url('../images/funky.jpg') fixed center;
+ 
 }
+#frame {
+  overflow: hidden;
+  height: 100px;
+
+}
+
 #song-title {
     text-align: center;
 }
-li {
-  
-}
+
 #grey {
-    position: fixed;
-    width: 0;
-    height: 0;
+  margin-top: -60px;
 }
 
+.funky {
+  background: url('../images/funky.jpg') fixed center;
+}
+
+#logo {
+
+}
+
+#soundPlayer {
+ background: transparent;
+
+}
+
+#da-button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+}
+
+.modal-content {
+  height: 600px;
+  width: 800px;
+
+}
+.modal-body {
+  height: 600px;
+  width: 800px;
+  
+}
 
 @keyframes titleMove
 {
@@ -116,6 +202,23 @@ li {
 0% {font-size: 18px;}
 50% {font-size: 21px;}
 100% {font-size: 18px;}
+}
+@keyframes hue {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@-webkit-keyframes hue {
+  0% {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  100% {
+    -webkit-filter: hue-rotate(360deg);
+  }
 }
 
 
@@ -134,6 +237,23 @@ li {
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-play-state: running;
 }
+
+.colors {
+    animation-name: hue;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+     /* Safari and Chrome: */
+    -webkit-animation-name: hue;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-play-state: running;
+}
+
 
 
 
