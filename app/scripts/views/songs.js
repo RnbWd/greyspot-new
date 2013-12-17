@@ -21,6 +21,7 @@ greyspot.Views.SongsView = Backbone.View.extend({
     this.listenTo(widgetPause, 'pause', this.toggleButton);
     this.listenTo(widgetPlay, 'play', this.toggleButton);
     this.listenTo(widgetPlay, 'play', this.checkPlay);
+    this.listenTo(widgetPause, 'pause', this.removeColors);
     this.listenTo(widgetProgress, 'fire', this.checkProgress);
     this.collection.fetch();
     //setTimeout(this.checkPause, 2500);
@@ -77,7 +78,9 @@ greyspot.Views.SongsView = Backbone.View.extend({
         }
       });
     });
-    
+      $('#frame').toggleClass('colors', true);
+      $('li').toggleClass('colors', true);
+      $('img').toggleClass('colors', true);
   },
   //update progress bar while playing
   checkProgress: function(data) {
@@ -86,8 +89,13 @@ greyspot.Views.SongsView = Backbone.View.extend({
   //update play/pause icons for song playing
   toggleButton: function() {
       //this.$('#player').toggleClass('funky').toggleClass('alert-danger');
-      $('.player-play').toggleClass('glyphicon-pause').toggleClass('glyphicon-play');
-      //$('#song-title').css({'color': 'orange'});
+      $('.player-play').toggleClass('glyphicon-pause').toggleClass('glyphicon-play');        
+       //$('#song-title').css({'color': 'orange'});
+  },
+  removeColors: function() {
+       $('#frame').toggleClass('colors', false);
+       $('li').toggleClass('colors', false);
+       $('img').toggleClass('colors', false);   
   }
 });
 

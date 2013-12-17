@@ -10,11 +10,9 @@ body {
 }
 
 .container {
-    position: relative;
     width: 100%;
-    height: 100%;
-
 }
+
 .header {
   display: block;
   height: 90%;
@@ -56,27 +54,10 @@ body {
   border-radius: 8px;
 }
 
-#facebook {
-
-  
-}
-
-#instagram {
-
- 
-}
-
-#soundCloud {
-}
-
 #youtube-icon {
 
   opacity: 0.6;
   background: lightgrey;
-
-}
-
-#twitter {
 
 }
 
@@ -85,7 +66,7 @@ body {
   background: lightgrey;
 }
 #youtube-icon:hover {
-  opacity: 0.7;
+  opacity: 0.8;
   background: darkgrey;
 }
 #twitter:hover {
@@ -102,64 +83,72 @@ body {
 }
 
 #media {
-  margin-top: 10%;
+  margin-top: 5%;
+  max-height: 50%;
+  overflow: hidden;
+
 }
 #media .row {
-  max-height: 75%;
-  overflow: scroll;
+
 }
 
 .list-group {
     position: relative;
     list-style: none;
-    overflow: scroll;
     color: black;
      
 }
 
 #songs {
-  position: relative;
-  max-height: 50%;
-  overflow: scroll;
-}
-
-#songs {
-    overflow: hidden;
-    height: 50%;
+    overflow: scroll;
 }
 
 #video-container {
-    overflow: hidden;
-    height: 50%;
+    background: url('../images/youtube-blur.jpg') center;
+    background-size: cover;
 }
-
+#video-container:hover {
+  background: url('../images/youtube.jpg') center;
+  background-size: cover;
+}
 #test {
     
 }
 
 #player {
-  border-top: none;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  background: url('../images/funky.jpg') fixed center;
- 
+  border-radius: 5px;
+  background: url('../images/funky.jpg') center;
+  padding: 10px;
+  text-align: center;
 }
+
+#player {
+
+  .btn {
+    background-color: lightgrey;
+    opacity: 0.9;
+  }
+  .btn:hover {
+    background-color: grey;
+    opacity: 0.9;
+  }
+}
+
 #frame {
   overflow: hidden;
   height: 100px;
-
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-top: 5px;
 }
 
 #song-title {
-    text-align: center;
+    text-shadow: 2px 2px 2px grey;
+    margin-bottom: 5px;
 }
 
 #grey {
   margin-top: -60px;
-}
-
-.funky {
-  background: url('../images/funky.jpg') fixed center;
 }
 
 #logo {
@@ -167,7 +156,7 @@ body {
 }
 
 #soundPlayer {
- background: transparent;
+
 
 }
 
@@ -255,7 +244,18 @@ body {
 }
 
 
-
+@media (max-width: $screen-xs-max) { }
+@media (max-width: $screen-sm-max) { 
+  #songs li {
+    width: 70%;
+    margin: 0 auto;
+  }
+  #songs {
+    margin-top: 10px;
+  }
+}
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {  }
+@media (min-width: $screen-lg-min) {  }
 
 
 
