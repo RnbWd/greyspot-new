@@ -79,8 +79,9 @@ greyspot.Views.SongsView = Backbone.View.extend({
       });
     });
       $('#frame').toggleClass('colors', true);
-      $('li').toggleClass('colors', true);
+      $('#songs').toggleClass('colors', true);
       $('img').toggleClass('colors', true);
+      $('li').toggleClass('colors', true);
   },
   //update progress bar while playing
   checkProgress: function(data) {
@@ -94,8 +95,9 @@ greyspot.Views.SongsView = Backbone.View.extend({
   },
   removeColors: function() {
        $('#frame').toggleClass('colors', false);
-       $('li').toggleClass('colors', false);
-       $('img').toggleClass('colors', false);   
+       $('#songs').toggleClass('colors', false);
+       $('img').toggleClass('colors', false); 
+       $('li').toggleClass('colors', false);     
   }
 });
 

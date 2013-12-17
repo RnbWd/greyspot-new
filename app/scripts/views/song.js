@@ -62,7 +62,7 @@ greyspot.Views.SongView = Backbone.View.extend({
   },
 
   leave: function() {
-    this.$el.css({'background-color': '#fafafa', 'color': 'black'});
+    this.$el.css({'background-color': 'transparent', 'color': '#030303'});
     this.$('.play').addClass('hidden');
   },
 
